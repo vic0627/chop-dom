@@ -8,6 +8,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import alias from "@rollup/plugin-alias";
 import del from "rollup-plugin-delete";
+import { readFileSync } from "fs";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const p = (...paths) => resolve(__dirname, ...paths);
@@ -16,6 +17,8 @@ const babelPlugin = babel({
   babelHelpers: "bundled",
   presets: ["@babel/preset-env"],
 });
+
+const banner = readFileSync(p("LICENSE"));
 
 const terserPlugin = terser();
 
@@ -26,10 +29,12 @@ export default defineConfig({
     {
       file: p("dist/index.js"),
       format: "esm",
+      banner,
     },
     {
       file: p("dist/index.min.js"),
       format: "esm",
+      banner,
       plugins: [terserPlugin],
     },
   ],
