@@ -1,8 +1,7 @@
 {
   "name": "chop-dom",
   "version": "1.0.0",
-  "main": "dist/chop-dom.umd.min.js",
-  "module": "dist/chop-dom.esm.min.js",
+  "main": "dist/index.d.ts",
   "type": "module",
   "scripts": {
     "build": "rollup -c ./rollup.config.js"
