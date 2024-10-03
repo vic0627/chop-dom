@@ -15,6 +15,8 @@ const p = (...paths) => resolve(__dirname, ...paths);
 
 const babelPlugin = babel({
   babelHelpers: "bundled",
+  comments: false,
+  targets: "ie 11",
   presets: ["@babel/preset-env"],
 });
 
@@ -27,12 +29,38 @@ export default defineConfig({
   treeshake: true,
   output: [
     {
-      file: p("dist/index.js"),
+      file: p("dist/chop-dom.iife.js"),
+      format: "iife",
+      name: "ChopDOM",
+      banner,
+    },
+    {
+      file: p("dist/chop-dom.umd.js"),
+      format: "umd",
+      name: "ChopDOM",
+      banner,
+    },
+    {
+      file: p("dist/chop-dom.esm.js"),
       format: "esm",
       banner,
     },
     {
-      file: p("dist/index.min.js"),
+      file: p("dist/chop-dom.iife.min.js"),
+      format: "iife",
+      name: "ChopDOM",
+      banner,
+      plugins: [terserPlugin],
+    },
+    {
+      file: p("dist/chop-dom.umd.min.js"),
+      format: "umd",
+      name: "ChopDOM",
+      banner,
+      plugins: [terserPlugin],
+    },
+    {
+      file: p("dist/chop-dom.esm.min.js"),
       format: "esm",
       banner,
       plugins: [terserPlugin],

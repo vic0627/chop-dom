@@ -81,10 +81,13 @@ function $<D extends HTMLElement | Window | Document, T>(
   for (const action of actions)
     for (const dom of doms)
       try {
-        result ??= action(dom as HTMLElement);
+        const tmp = action(dom as HTMLElement);
+        if (tmp === dom) result = tmp;
+        else result ??= tmp;
       } catch (e) {
         console.error(e);
       }
+  if (result === undefined) result = doms[0] as T;
 
   return result;
 }

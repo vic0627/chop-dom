@@ -1,15 +1,26 @@
 {
   "name": "chop-dom",
   "version": "1.0.0",
-  "main": "./dist/index.js",
+  "main": "dist/chop-dom.umd.min.js",
+  "module": "dist/chop-dom.esm.min.js",
   "type": "module",
   "scripts": {
     "build": "rollup -c ./rollup.config.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "DOM",
+    "JavaScript",
+    "tree-shaking",
+    "modular",
+    "jQuery alternative",
+    "lightweight",
+    "TypeScript",
+    "CSS",
+    "event handling"
+  ],
+  "author": "VICTOR HSU",
+  "license": "MIT",
+  "description": "Chop-DOM is a lightweight, modular, and tree-shakable JavaScript library for efficient DOM manipulation, offering a modern alternative to jQuery with minimal bundle sizes.",
   "devDependencies": {
     "@babel/preset-env": "^7.25.4",
     "@rollup/plugin-alias": "^5.1.1",
