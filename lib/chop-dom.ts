@@ -1,4 +1,4 @@
-export * as $ from "./selector";
+export * from "./selector";
 export * from "./attribute";
 export * from "./class-list";
 export * from "./content";

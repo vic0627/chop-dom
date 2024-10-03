@@ -48,14 +48,14 @@ import type { DOMs, Action } from "./types";
  * - **Action Factories**: Functions like `setAttr`, `addClass`, `on`, etc., create actions that can be applied to elements.
  * - **Integration**: Use this function in combination with action factories to manipulate the DOM efficiently.
  */
-function $<D extends HTMLElement | Window | Document>(
+export function $<D extends HTMLElement | Window | Document>(
   selector: string | D
 ): D extends string ? HTMLElement[] : D[];
-function $<D extends HTMLElement | Window | Document, T>(
+export function $<D extends HTMLElement | Window | Document, T>(
   selector: string | D,
   ...actions: Action<T>[]
 ): T;
-function $<D extends HTMLElement | Window | Document, T>(
+export function $<D extends HTMLElement | Window | Document, T>(
   selector: string | D,
   ...actions: Action<T>[]
 ): any {
@@ -75,7 +75,7 @@ function $<D extends HTMLElement | Window | Document, T>(
       "selector must be string, Document, Window, or HTMLElement"
     );
 
-  if (!actions.length) return doms;
+  if (!actions.length) return doms[0];
 
   let result!: T;
   for (const action of actions)
@@ -91,5 +91,3 @@ function $<D extends HTMLElement | Window | Document, T>(
 
   return result;
 }
-
-export default $;

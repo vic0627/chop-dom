@@ -1,11 +1,7 @@
 {
   "name": "chop-dom",
-  "version": "1.0.2",
-  "main": "dist/index",
-  "type": "module",
-  "scripts": {
-    "build": "rollup -c ./rollup.config.js"
-  },
+  "version": "1.0.11",
+  "description": "Chop-DOM is a lightweight, modular, and tree-shakable JavaScript library for efficient DOM manipulation, offering a modern alternative to jQuery with minimal bundle sizes.",
   "keywords": [
     "DOM",
     "JavaScript",
@@ -17,9 +13,17 @@
     "CSS",
     "event handling"
   ],
+  "main": "dist/chop-dom",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js"
+  },
   "author": "VICTOR HSU",
   "license": "MIT",
-  "description": "Chop-DOM is a lightweight, modular, and tree-shakable JavaScript library for efficient DOM manipulation, offering a modern alternative to jQuery with minimal bundle sizes.",
   "devDependencies": {
     "@babel/preset-env": "^7.25.4",
     "@rollup/plugin-alias": "^5.1.1",
@@ -30,6 +34,7 @@
     "@rollup/plugin-typescript": "^12.1.0",
     "rollup": "^4.23.0",
     "rollup-plugin-delete": "^2.1.0",
+    "rollup-plugin-dts": "^6.1.1",
     "tslib": "^2.7.0",
     "typescript": "^5.6.2"
   }

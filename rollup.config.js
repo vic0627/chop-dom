@@ -1,4 +1,5 @@
 import { fileURLToPath } from "url";
+import { readFileSync } from "fs";
 import { resolve } from "path";
 import { defineConfig } from "rollup";
 import { babel } from "@rollup/plugin-babel";
@@ -8,7 +9,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import alias from "@rollup/plugin-alias";
 import del from "rollup-plugin-delete";
-import { readFileSync } from "fs";
+import dts from "rollup-plugin-dts";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const p = (...paths) => resolve(__dirname, ...paths);
@@ -24,58 +25,52 @@ const banner = readFileSync(p("LICENSE"));
 
 const terserPlugin = terser();
 
-export default defineConfig({
-  input: p("lib/index.ts"),
-  treeshake: true,
-  output: [
-    {
-      file: p("dist/index.iife.js"),
-      format: "iife",
-      name: "ChopDOM",
-      banner,
-    },
-    {
-      file: p("dist/index.umd.js"),
-      format: "umd",
-      name: "ChopDOM",
-      banner,
-    },
-    {
-      file: p("dist/index.esm.js"),
-      format: "esm",
-      banner,
-    },
-    {
-      file: p("dist/index.iife.min.js"),
-      format: "iife",
-      name: "ChopDOM",
-      banner,
-      plugins: [terserPlugin],
-    },
-    {
-      file: p("dist/index.umd.min.js"),
-      format: "umd",
-      name: "ChopDOM",
-      banner,
-      plugins: [terserPlugin],
-    },
-    {
-      file: p("dist/index.esm.min.js"),
-      format: "esm",
-      banner,
-      plugins: [terserPlugin],
-    },
-  ],
-  plugins: [
-    del({ targets: p("dist/*") }),
-    typescript(),
-    nodeResolve(),
-    commonjs(),
-    alias({
-      entries: {
-        "@/": p("lib"),
+export default defineConfig([
+  {
+    input: p("lib/chop-dom.ts"),
+    treeshake: true,
+    output: [
+      {
+        file: p("dist/chop-dom.js"),
+        format: "esm",
+        banner,
+        plugins: [terserPlugin],
       },
-    }),
-    babelPlugin,
-  ],
-});
+      {
+        file: p("dist/chop-dom.min.js"),
+        format: "iife",
+        name: "ChopDOM",
+        banner,
+        plugins: [terserPlugin],
+      },
+      {
+        file: p("dist/chop-dom.umd.js"),
+        format: "umd",
+        name: "ChopDOM",
+        banner,
+        plugins: [terserPlugin],
+      },
+    ],
+    plugins: [
+      del({ targets: p("dist/*") }),
+      typescript(),
+      nodeResolve(),
+      commonjs(),
+      alias({
+        entries: {
+          "@/": p("lib"),
+        },
+      }),
+      babelPlugin,
+    ],
+  },
+  {
+    input: p("dist/types/chop-dom.d.ts"),
+    output: {
+      file: p("dist/chop-dom.d.ts"),
+      format: "esm",
+      banner,
+    },
+    plugins: [del({ targets: p("dist/types"), hook: "buildEnd" }), dts()],
+  },
+]);
