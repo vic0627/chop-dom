@@ -55,9 +55,9 @@ export function chop<D extends HTMLElement | Globals, T>(selector: string | D, .
     throw new TypeError("selector must be string, Document, Window, or HTMLElement");
   }
 
-  const lastIdx = doms.length - 1;
+  const lastDom = doms[doms.length - 1];
   if (!commands.length) {
-    return doms[lastIdx];
+    return lastDom;
   }
 
   let result: T | T[] = [];
@@ -76,7 +76,12 @@ export function chop<D extends HTMLElement | Globals, T>(selector: string | D, .
 
   result = result.filter((value) => !isEmptyValue(value));
 
+  // no output values, return element
   if (!result.length) {
+    result = lastDom as T;
+  }
+  // single value, destructure the value
+  else if (result.length === 1) {
     result = result[0];
   }
 
