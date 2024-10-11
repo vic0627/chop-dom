@@ -1,77 +1,173 @@
-import type { Action } from "./types";
+import type { Command } from "./types";
 
 /**
- * Creates an action to get the inner HTML content of an element.
- * @returns An action that retrieves the innerHTML of an element.
+ * Creates a command to get the inner HTML content of an element.
+ * @returns A command that retrieves the innerHTML of the element.
  */
-export const getInnerHtml =
-  (): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    node.innerHTML;
+export function getInnerHtml(): Command<string> {
+  return function () {
+    return this.innerHTML;
+  };
+}
 
 /**
- * Creates an action to set the inner HTML content of an element.
+ * Creates a command to set the inner HTML content of an element.
  * @param html - The HTML string to set as the element's innerHTML.
- * @returns An action that sets the innerHTML of an element.
+ * @returns A command that sets the innerHTML of the element.
  */
-export const setInnerHtml =
-  (html: string): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    (node.innerHTML = html);
+export function setInnerHtml(html: string): Command<void> {
+  return function () {
+    this.innerHTML = html;
+  };
+}
 
 /**
- * Creates an action to get the outer HTML of an element, including the element itself.
- * @returns An action that retrieves the outerHTML of an element.
+ * Creates a command to prefix content to the existing innerHTML of an element.
+ * @param html - The HTML string to prefix to the element's innerHTML.
+ * @returns A command that prefixes the HTML content to the element's innerHTML.
  */
-export const getOuterHtml =
-  (): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    node.outerHTML;
+export function prefixInnerHtml(html: string): Command<void> {
+  return function () {
+    this.innerHTML = html + this.innerHTML;
+  };
+}
 
 /**
- * Creates an action to set the outer HTML of an element, replacing the element and its contents.
+ * Creates a command to append content to the existing innerHTML of an element.
+ * @param html - The HTML string to append to the element's innerHTML.
+ * @returns A command that appends the HTML content to the element's innerHTML.
+ */
+export function appendInnerHtml(html: string): Command<void> {
+  return function () {
+    this.innerHTML += html;
+  };
+}
+
+/**
+ * Creates a command to get the outer HTML of an element, including the element itself.
+ * @returns A command that retrieves the outerHTML of the element.
+ */
+export function getOuterHtml(): Command<string> {
+  return function () {
+    return this.outerHTML;
+  };
+}
+
+/**
+ * Creates a command to set the outer HTML of an element, replacing the element and its contents.
  * @param html - The HTML string to replace the element with.
- * @returns An action that sets the outerHTML of an element.
+ * @returns A command that sets the outerHTML of the element.
  */
-export const setOuterHtml =
-  (html: string): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    (node.outerHTML = html);
+export function setOuterHtml(html: string): Command<void> {
+  return function () {
+    this.outerHTML = html;
+  };
+}
 
 /**
- * Creates an action to get the inner text content of an element.
- * @returns An action that retrieves the innerText of an element.
+ * Creates a command to prefix content to the existing outerHTML of an element.
+ * @param html - The HTML string to prefix to the element's outerHTML.
+ * @returns A command that prefixes the HTML content to the element's outerHTML.
  */
-export const getInnerText =
-  (): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    node.innerText;
+export function prefixOuterHtml(html: string): Command<void> {
+  return function () {
+    this.outerHTML = html + this.outerHTML;
+  };
+}
 
 /**
- * Creates an action to set the inner text content of an element.
- * @param html - The text string to set as the element's innerText.
- * @returns An action that sets the innerText of an element.
+ * Creates a command to append content to the existing outerHTML of an element.
+ * @param html - The HTML string to append to the element's outerHTML.
+ * @returns A command that appends the HTML content to the element's outerHTML.
  */
-export const setInnerText =
-  (html: string): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    (node.innerText = html);
+export function appendOuterHtml(html: string): Command<void> {
+  return function () {
+    this.outerHTML += html;
+  };
+}
 
 /**
- * Creates an action to get the outer text of an element, including the text of the element itself.
- * @returns An action that retrieves the outerText of an element.
+ * Creates a command to get the inner text content of an element.
+ * @returns A command that retrieves the innerText of the element.
  */
-export const getOuterText =
-  (): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    node.outerText;
+export function getInnerText(): Command<string> {
+  return function () {
+    return this.innerText;
+  };
+}
 
 /**
- * Creates an action to set the outer text of an element, replacing the element and its contents.
- * @param html - The text string to replace the element with.
- * @returns An action that sets the outerText of an element.
+ * Creates a command to set the inner text content of an element.
+ * @param text - The text string to set as the element's innerText.
+ * @returns A command that sets the innerText of the element.
  */
-export const setOuterText =
-  (html: string): Action<string> =>
-  <N extends HTMLElement>(node: N) =>
-    (node.outerText = html);
+export function setInnerText(text: string): Command<void> {
+  return function () {
+    this.innerText = text;
+  };
+}
+
+/**
+ * Creates a command to prefix text to the existing innerText of an element.
+ * @param html - The text string to prefix to the element's innerText.
+ * @returns A command that prefixes the text content to the element's innerText.
+ */
+export function prefixInnerText(html: string): Command<void> {
+  return function () {
+    this.innerText = html + this.innerText;
+  };
+}
+
+/**
+ * Creates a command to append text to the existing innerText of an element.
+ * @param html - The text string to append to the element's innerText.
+ * @returns A command that appends the text content to the element's innerText.
+ */
+export function appendInnerText(html: string): Command<void> {
+  return function () {
+    this.innerText += html;
+  };
+}
+
+/**
+ * Creates a command to get the outer text of an element, including the text of the element itself.
+ * @returns A command that retrieves the outerText of the element.
+ */
+export function getOuterText(): Command<string> {
+  return function () {
+    return this.outerText;
+  };
+}
+
+/**
+ * Creates a command to set the outer text of an element, replacing the element and its contents.
+ * @param text - The text string to replace the element with.
+ * @returns A command that sets the outerText of the element.
+ */
+export function setOuterText(text: string): Command<void> {
+  return function () {
+    this.outerText = text;
+  };
+}
+
+/**
+ * Creates a command to prefix text to the existing outerText of an element.
+ * @param html - The text string to prefix to the element's outerText.
+ * @returns A command that prefixes the text content to the element's outerText.
+ */
+export function prefixOuterText(html: string): Command<void> {
+  return function () {
+    this.outerText = html + this.outerText;
+  };
+}
+
+/**
+ * Creates a command to append text to the existing outerText of an element.
+ * @param html - The text string to append to the element's outerText.
+ * @returns A command that appends the text content to the element's outerText.
+ */
+export function appendOuterText(html: string): Command<void> {
+  return function () {
+    this.outerText += html;
+  };
+}
