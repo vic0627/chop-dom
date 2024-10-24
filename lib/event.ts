@@ -12,8 +12,8 @@ export function on(
   listener: EventListenerOrEventListenerObject,
   options?: boolean | AddEventListenerOptions
 ): Command<void> {
-  return function () {
-    this.addEventListener(event, listener, options);
+  return function (node) {
+    node.addEventListener(event, listener, options);
   };
 }
 
@@ -29,8 +29,8 @@ export function off(
   listener: EventListenerOrEventListenerObject,
   options?: boolean | EventListenerOptions
 ): Command<void> {
-  return function () {
-    this.removeEventListener(event, listener, options);
+  return function (node) {
+    node.removeEventListener(event, listener, options);
   };
 }
 
@@ -46,15 +46,15 @@ export function once(
   listener: EventListenerOrEventListenerObject,
   options?: boolean | AddEventListenerOptions
 ): Command<void> {
-  return function () {
+  return function (node) {
     const _listener: EventListenerOrEventListenerObject = (e) => {
       if (listener instanceof Function) {
         listener(e);
       } else {
         listener.handleEvent(e);
       }
-      this.removeEventListener(event, _listener, options);
+      node.removeEventListener(event, _listener, options);
     };
-    this.addEventListener(event, _listener, options);
+    node.addEventListener(event, _listener, options);
   };
 }

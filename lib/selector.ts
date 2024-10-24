@@ -1,4 +1,4 @@
-import type { Globals, DOMs, Command } from "./types";
+import type { Globals, DOMs, Command, CommandChainReturns } from "./types";
 import { isEmptyValue } from "./utils/type-check";
 
 /**
@@ -18,21 +18,22 @@ import { isEmptyValue } from "./utils/type-check";
  *
  * @example
  * // Selects an element and sets its innerHTML, then gets the updated innerHTML
- * chop('#myElement', setInnerHtml('Hello World'), getInnerHtml());
+ * $('#myElement', setInnerHtml('Hello World'), getInnerHtml());
  *
  * @example
  * // Creates a new div element and sets its CSS properties
- * chop('<div>', setCss('width', '100px'), setCss('height', '50px'));
+ * $('<div>', setCss('width', '100px'), setCss('height', '50px'));
  *
  * @example
  * // Appends a string and a node to an element
- * chop('#myElement', append('Some text', chop('<span>')));
+ * $('#myElement', append('Some text', $('<span>')));
  *
  * @throws {TypeError} If the `selector` is not a valid string, `Document`, `Window`, or `HTMLElement`.
  */
-export function chop<D extends HTMLElement | Globals>(selector: string | D): D extends string ? HTMLElement : D;
-export function chop<D extends HTMLElement | Globals, T>(selector: string | D, ...commands: Command<T>[]): T | T[];
-export function chop<D extends HTMLElement | Globals, T>(selector: string | D, ...commands: Command<T>[]): any {
+export function $<D extends string | HTMLElement | Globals>(selector: D): D extends string ? HTMLElement : D;
+/** @todo */
+export function $<D extends string | HTMLElement | Globals, T>(selector: D, ...commands: Command<T>[]): CommandChainReturns<T, D>;
+export function $<D extends string | HTMLElement | Globals, T>(selector: D, ...commands: Command<T>[]): any {
   let doms: DOMs<D>;
 
   // use as a selector
@@ -64,7 +65,7 @@ export function chop<D extends HTMLElement | Globals, T>(selector: string | D, .
   for (const command of commands) {
     doms.forEach((dom, i) => {
       try {
-        const value = command.apply(dom as HTMLElement, [(result as T[])[i]]);
+        const value = command(dom as HTMLElement, (result as T[])[i]);
         if (!isEmptyValue(value)) {
           (result as T[])[i] = value;
         }

@@ -6,8 +6,8 @@ import type { Command } from "./types";
  * @returns A command that retrieves the computed style value from the element.
  */
 export function getCss(property: string): Command<string | null> {
-  return function () {
-    return getComputedStyle(this).getPropertyValue(property);
+  return function (node) {
+    return getComputedStyle(node).getPropertyValue(property);
   };
 }
 
@@ -18,8 +18,8 @@ export function getCss(property: string): Command<string | null> {
  * @returns A command that sets the CSS property on the element.
  */
 export function setCss(property: string, value: string): Command<void> {
-  return function () {
-    this.style.setProperty(property, value);
+  return function (node) {
+    node.style.setProperty(property, value);
   };
 }
 
@@ -29,9 +29,9 @@ export function setCss(property: string, value: string): Command<void> {
  * @returns A command that sets multiple CSS properties on the element.
  */
 export function mapSetCss(properties: Record<string, string>): Command<void> {
-  return function () {
+  return function (node) {
     for (const key in properties) {
-      this.style.setProperty(key, properties[key]);
+      node.style.setProperty(key, properties[key]);
     }
   };
 }
@@ -41,8 +41,8 @@ export function mapSetCss(properties: Record<string, string>): Command<void> {
  * @returns A command that retrieves the width of the element.
  */
 export function getWidth(): Command<number> {
-  return function () {
-    return this.getBoundingClientRect().width;
+  return function (node) {
+    return node.getBoundingClientRect().width;
   };
 }
 
@@ -52,8 +52,8 @@ export function getWidth(): Command<number> {
  * @returns A command that sets the width of the element.
  */
 export function setWidth(value: string | number): Command<void> {
-  return function () {
-    this.style.width = typeof value === "number" ? `${value}px` : value;
+  return function (node) {
+    node.style.width = typeof value === "number" ? `${value}px` : value;
   };
 }
 
@@ -62,8 +62,8 @@ export function setWidth(value: string | number): Command<void> {
  * @returns A command that retrieves the height of the element.
  */
 export function getHeight(): Command<number> {
-  return function () {
-    return this.getBoundingClientRect().height;
+  return function (node) {
+    return node.getBoundingClientRect().height;
   };
 }
 
@@ -73,8 +73,8 @@ export function getHeight(): Command<number> {
  * @returns A command that sets the height of the element.
  */
 export function setHeight(value: string | number): Command<void> {
-  return function () {
-    this.style.height = typeof value === "number" ? `${value}px` : value;
+  return function (node) {
+    node.style.height = typeof value === "number" ? `${value}px` : value;
   };
 }
 
@@ -83,8 +83,8 @@ export function setHeight(value: string | number): Command<void> {
  * @returns A command that retrieves the clientWidth of the element.
  */
 export function getInnerWidth(): Command<number> {
-  return function () {
-    return this.clientWidth;
+  return function (node) {
+    return node.clientWidth;
   };
 }
 
@@ -93,8 +93,8 @@ export function getInnerWidth(): Command<number> {
  * @returns A command that retrieves the clientHeight of the element.
  */
 export function getInnerHeight(): Command<number> {
-  return function () {
-    return this.clientHeight;
+  return function (node) {
+    return node.clientHeight;
   };
 }
 
@@ -104,10 +104,10 @@ export function getInnerHeight(): Command<number> {
  * @returns A command that retrieves the outer width of the element, optionally including margins.
  */
 export function getOuterWidth(includeMargin: boolean = false): Command<number> {
-  return function () {
-    let width = this.offsetWidth;
+  return function (node) {
+    let width = node.offsetWidth;
     if (includeMargin) {
-      const style = getComputedStyle(this);
+      const style = getComputedStyle(node);
       width += parseFloat(style.marginLeft) + parseFloat(style.marginRight);
     }
     return width;
@@ -120,10 +120,10 @@ export function getOuterWidth(includeMargin: boolean = false): Command<number> {
  * @returns A command that retrieves the outer height of the element, optionally including margins.
  */
 export function getOuterHeight(includeMargin: boolean = false): Command<number> {
-  return function () {
-    let height = this.offsetHeight;
+  return function (node) {
+    let height = node.offsetHeight;
     if (includeMargin) {
-      const style = getComputedStyle(this);
+      const style = getComputedStyle(node);
       height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
     }
     return height;
@@ -135,8 +135,8 @@ export function getOuterHeight(includeMargin: boolean = false): Command<number> 
  * @returns A command that retrieves the top and left offset of the element.
  */
 export function getOffset(): Command<{ top: number; left: number }> {
-  return function () {
-    const rect = this.getBoundingClientRect();
+  return function (node) {
+    const rect = node.getBoundingClientRect();
     return {
       top: rect.top + window.pageYOffset,
       left: rect.left + window.pageXOffset,
@@ -149,8 +149,8 @@ export function getOffset(): Command<{ top: number; left: number }> {
  * @returns A command that retrieves the scrollLeft value of the element.
  */
 export function getScrollLeft(): Command<number> {
-  return function () {
-    return this.scrollLeft;
+  return function (node) {
+    return node.scrollLeft;
   };
 }
 
@@ -160,8 +160,8 @@ export function getScrollLeft(): Command<number> {
  * @returns A command that sets the scrollLeft value of the element.
  */
 export function setScrollLeft(value: number): Command<void> {
-  return function () {
-    this.scrollLeft = value;
+  return function (node) {
+    node.scrollLeft = value;
   };
 }
 
@@ -170,8 +170,8 @@ export function setScrollLeft(value: number): Command<void> {
  * @returns A command that retrieves the scrollTop value of the element.
  */
 export function getScrollTop(): Command<number> {
-  return function () {
-    return this.scrollTop;
+  return function (node) {
+    return node.scrollTop;
   };
 }
 
@@ -181,7 +181,7 @@ export function getScrollTop(): Command<number> {
  * @returns A command that sets the scrollTop value of the element.
  */
 export function setScrollTop(value: number): Command<void> {
-  return function () {
-    this.scrollTop = value;
+  return function (node) {
+    node.scrollTop = value;
   };
 }

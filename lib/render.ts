@@ -6,8 +6,8 @@ import type { Command } from "./types";
  * @returns A command that appends the specified nodes or strings to the element.
  */
 export function append(...nodes: (Node | string)[]): Command<void> {
-  return function () {
-    this.append(...nodes);
+  return function (node) {
+    node.append(...nodes);
   };
 }
 
@@ -17,8 +17,8 @@ export function append(...nodes: (Node | string)[]): Command<void> {
  * @returns A command that appends the element to the parent node.
  */
 export function appendTo(parent: Node): Command<void> {
-  return function () {
-    parent.appendChild(this);
+  return function (node) {
+    parent.appendChild(node);
   };
 }
 
@@ -27,8 +27,8 @@ export function appendTo(parent: Node): Command<void> {
  * @returns A command that removes the element from the DOM.
  */
 export function remove(): Command<void> {
-  return function () {
-    this.remove();
+  return function (node) {
+    node.remove();
   };
 }
 
@@ -39,8 +39,8 @@ export function remove(): Command<void> {
  * @returns A command that replaces the old child with the new node in the element.
  */
 export function replaceChild(newNode: Node, oldNode: Node): Command<void> {
-  return function () {
-    this.replaceChild(newNode, oldNode);
+  return function (node) {
+    node.replaceChild(newNode, oldNode);
   };
 }
 
@@ -50,8 +50,8 @@ export function replaceChild(newNode: Node, oldNode: Node): Command<void> {
  * @returns A command that removes the specified child node from the element.
  */
 export function removeChild(childNode: Node): Command<void> {
-  return function () {
-    this.removeChild(childNode);
+  return function (node) {
+    node.removeChild(childNode);
   };
 }
 
@@ -61,7 +61,7 @@ export function removeChild(childNode: Node): Command<void> {
  * @returns A command that clones the element and returns the cloned node.
  */
 export function clone(deep: boolean = true): Command<Node> {
-  return function () {
-    return this.cloneNode(deep);
+  return function (node) {
+    return node.cloneNode(deep);
   };
 }

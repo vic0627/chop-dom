@@ -6,8 +6,8 @@ import type { Command } from "./types";
  * @returns A command that returns true if the class exists on the element.
  */
 export function hasClass(token: string): Command<boolean> {
-  return function () {
-    return this.classList.contains(token);
+  return function (node) {
+    return node.classList.contains(token);
   };
 }
 
@@ -17,8 +17,8 @@ export function hasClass(token: string): Command<boolean> {
  * @returns A command that adds the specified classes to the element.
  */
 export function addClass(...token: string[]): Command<void> {
-  return function () {
-    this.classList.add(...token);
+  return function (node) {
+    node.classList.add(...token);
   };
 }
 
@@ -28,8 +28,8 @@ export function addClass(...token: string[]): Command<void> {
  * @returns A command that removes the specified classes from the element.
  */
 export function removeClass(...token: string[]): Command<void> {
-  return function () {
-    this.classList.remove(...token);
+  return function (node) {
+    node.classList.remove(...token);
   };
 }
 
@@ -40,8 +40,8 @@ export function removeClass(...token: string[]): Command<void> {
  * @returns A command that toggles the class on the element and returns the updated state.
  */
 export function toggleClass(token: string, force?: boolean): Command<boolean> {
-  return function () {
-    return this.classList.toggle(token, force);
+  return function (node) {
+    return node.classList.toggle(token, force);
   };
 }
 
@@ -52,7 +52,7 @@ export function toggleClass(token: string, force?: boolean): Command<boolean> {
  * @returns A command that replaces the old class with the new one on the element and returns true if the class was replaced.
  */
 export function replaceClass(token: string, newToken: string): Command<boolean> {
-  return function () {
-    return this.classList.replace(token, newToken);
+  return function (node) {
+    return node.classList.replace(token, newToken);
   };
 }

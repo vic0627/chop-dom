@@ -5,8 +5,8 @@ import type { Command } from "./types";
  * @returns A command that retrieves the innerHTML of the element.
  */
 export function getInnerHtml(): Command<string> {
-  return function () {
-    return this.innerHTML;
+  return function (node) {
+    return node.innerHTML;
   };
 }
 
@@ -16,8 +16,8 @@ export function getInnerHtml(): Command<string> {
  * @returns A command that sets the innerHTML of the element.
  */
 export function setInnerHtml(html: string): Command<void> {
-  return function () {
-    this.innerHTML = html;
+  return function (node) {
+    node.innerHTML = html;
   };
 }
 
@@ -27,8 +27,8 @@ export function setInnerHtml(html: string): Command<void> {
  * @returns A command that prefixes the HTML content to the element's innerHTML.
  */
 export function prefixInnerHtml(html: string): Command<void> {
-  return function () {
-    this.innerHTML = html + this.innerHTML;
+  return function (node) {
+    node.innerHTML = html + node.innerHTML;
   };
 }
 
@@ -38,8 +38,8 @@ export function prefixInnerHtml(html: string): Command<void> {
  * @returns A command that appends the HTML content to the element's innerHTML.
  */
 export function appendInnerHtml(html: string): Command<void> {
-  return function () {
-    this.innerHTML += html;
+  return function (node) {
+    node.innerHTML += html;
   };
 }
 
@@ -48,8 +48,8 @@ export function appendInnerHtml(html: string): Command<void> {
  * @returns A command that retrieves the outerHTML of the element.
  */
 export function getOuterHtml(): Command<string> {
-  return function () {
-    return this.outerHTML;
+  return function (node) {
+    return node.outerHTML;
   };
 }
 
@@ -59,8 +59,8 @@ export function getOuterHtml(): Command<string> {
  * @returns A command that sets the outerHTML of the element.
  */
 export function setOuterHtml(html: string): Command<void> {
-  return function () {
-    this.outerHTML = html;
+  return function (node) {
+    node.outerHTML = html;
   };
 }
 
@@ -70,8 +70,8 @@ export function setOuterHtml(html: string): Command<void> {
  * @returns A command that prefixes the HTML content to the element's outerHTML.
  */
 export function prefixOuterHtml(html: string): Command<void> {
-  return function () {
-    this.outerHTML = html + this.outerHTML;
+  return function (node) {
+    node.outerHTML = html + node.outerHTML;
   };
 }
 
@@ -81,8 +81,8 @@ export function prefixOuterHtml(html: string): Command<void> {
  * @returns A command that appends the HTML content to the element's outerHTML.
  */
 export function appendOuterHtml(html: string): Command<void> {
-  return function () {
-    this.outerHTML += html;
+  return function (node) {
+    node.outerHTML += html;
   };
 }
 
@@ -91,8 +91,8 @@ export function appendOuterHtml(html: string): Command<void> {
  * @returns A command that retrieves the innerText of the element.
  */
 export function getInnerText(): Command<string> {
-  return function () {
-    return this.innerText;
+  return function (node) {
+    return node.innerText;
   };
 }
 
@@ -102,8 +102,8 @@ export function getInnerText(): Command<string> {
  * @returns A command that sets the innerText of the element.
  */
 export function setInnerText(text: string): Command<void> {
-  return function () {
-    this.innerText = text;
+  return function (node) {
+    node.innerText = text;
   };
 }
 
@@ -113,8 +113,8 @@ export function setInnerText(text: string): Command<void> {
  * @returns A command that prefixes the text content to the element's innerText.
  */
 export function prefixInnerText(html: string): Command<void> {
-  return function () {
-    this.innerText = html + this.innerText;
+  return function (node) {
+    node.innerText = html + node.innerText;
   };
 }
 
@@ -124,8 +124,8 @@ export function prefixInnerText(html: string): Command<void> {
  * @returns A command that appends the text content to the element's innerText.
  */
 export function appendInnerText(html: string): Command<void> {
-  return function () {
-    this.innerText += html;
+  return function (node) {
+    node.innerText += html;
   };
 }
 
@@ -134,8 +134,8 @@ export function appendInnerText(html: string): Command<void> {
  * @returns A command that retrieves the outerText of the element.
  */
 export function getOuterText(): Command<string> {
-  return function () {
-    return this.outerText;
+  return function (node) {
+    return node.outerText;
   };
 }
 
@@ -145,8 +145,8 @@ export function getOuterText(): Command<string> {
  * @returns A command that sets the outerText of the element.
  */
 export function setOuterText(text: string): Command<void> {
-  return function () {
-    this.outerText = text;
+  return function (node) {
+    node.outerText = text;
   };
 }
 
@@ -156,8 +156,8 @@ export function setOuterText(text: string): Command<void> {
  * @returns A command that prefixes the text content to the element's outerText.
  */
 export function prefixOuterText(html: string): Command<void> {
-  return function () {
-    this.outerText = html + this.outerText;
+  return function (node) {
+    node.outerText = html + node.outerText;
   };
 }
 
@@ -167,7 +167,7 @@ export function prefixOuterText(html: string): Command<void> {
  * @returns A command that appends the text content to the element's outerText.
  */
 export function appendOuterText(html: string): Command<void> {
-  return function () {
-    this.outerText += html;
+  return function (node) {
+    node.outerText += html;
   };
 }
