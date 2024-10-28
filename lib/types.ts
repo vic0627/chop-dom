@@ -6,9 +6,8 @@ export type DOMs<N extends string | HTMLElement | Globals> = N extends string
 
 export type Command<T> = <N extends HTMLElement, V>(node: N, value: V) => T;
 
-/** @todo */
-type ExcludeReturns<T> = T extends undefined | void | null ? HTMLElement : T
+export type ExcludeEmpty<T> = T extends null | undefined | void ? never : T;
 
-export type CommandChainReturns<T, S> = S extends `#${string}` | `<${string}>`
-  ? ExcludeReturns<T>
-  : ExcludeReturns<T> | ExcludeReturns<T>[];
+export type ReturnsBySelector<S, T> = S extends `#${string}` | `<${string}>` ? ExcludeEmpty<T> : ExcludeEmpty<T> | ExcludeEmpty<T>[]
+
+export type ReturnsByCommands<S, T> = ReturnsBySelector<S, T | HTMLElement>;
