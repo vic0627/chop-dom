@@ -1,6 +1,6 @@
 {
   "name": "chop-dom",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "description": "Chop-DOM is a lightweight, modular, and tree-shakable JavaScript library for efficient DOM manipulation, offering a modern alternative to jQuery with minimal bundle sizes.",
   "keywords": [
     "DOM",
