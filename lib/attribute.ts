@@ -1,13 +1,13 @@
-import type { Command } from "./types";
+import type { Command, Void } from "./types";
 
 /**
  * Creates a command to get the value of a specified attribute from an element.
  * @param qualifiedName - The name of the attribute to retrieve.
  * @returns A command that retrieves the attribute value from the element.
  */
-export function getAttr(qualifiedName: string): Command<string | null> {
+export function getAttr(qualifiedName: string): Command<string> {
   return function (node) {
-    return node.getAttribute(qualifiedName);
+    return node.getAttribute(qualifiedName) || "";
   };
 }
 
@@ -17,7 +17,7 @@ export function getAttr(qualifiedName: string): Command<string | null> {
  * @param value - The value to assign to the attribute.
  * @returns A command that sets the attribute value on the element.
  */
-export function setAttr(attribute: string, value: any): Command<void> {
+export function setAttr(attribute: string, value: any): Command<Void> {
   return function (node) {
     node.setAttribute(attribute, value);
   };
@@ -28,7 +28,7 @@ export function setAttr(attribute: string, value: any): Command<void> {
  * @param attributes - An object containing attribute-value pairs to set.
  * @returns A command that sets multiple attributes on the element.
  */
-export function mapSetAttr(attributes: Record<string, string>): Command<void> {
+export function mapSetAttr(attributes: Record<string, string>): Command<Void> {
   return function (node) {
     for (const key in attributes) node.setAttribute(key, attributes[key]);
   };
@@ -39,7 +39,7 @@ export function mapSetAttr(attributes: Record<string, string>): Command<void> {
  * @param attribute - The name of the attribute to remove.
  * @returns A command that removes the attribute from the element.
  */
-export function removeAttr(attribute: string): Command<void> {
+export function removeAttr(attribute: string): Command<Void> {
   return function (node) {
     node.removeAttribute(attribute);
   };
@@ -72,9 +72,9 @@ export function toggleAttr(attribute: string, force?: boolean): Command<boolean>
  * Creates a command to get the value property of an element.
  * @returns A command that retrieves the value of the element if the value property exists.
  */
-export function getValue(): Command<string | null> {
+export function getValue(): Command<string> {
   return function (node) {
-    return "value" in node ? (node.value as string) : null;
+    return "value" in node ? (node.value as string) : "";
   };
 }
 
@@ -83,7 +83,7 @@ export function getValue(): Command<string | null> {
  * @param value - The value to assign to the element.
  * @returns A command that sets the value of the element if the value property exists.
  */
-export function setValue(value: any): Command<void> {
+export function setValue(value: any): Command<Void> {
   return function (node) {
     if ("value" in node) node.value = value;
   };

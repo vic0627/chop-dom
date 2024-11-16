@@ -22,16 +22,16 @@ npm install chop-dom
 
 ## Usage
 
-Chop-DOM provides a flexible $ function that allows you to select DOM elements and apply a series of actions. It also provides a set of action factories that generate actions to manipulate the DOM elements in various ways.
+Chop-DOM provides a flexible `cdom` function that allows you to select DOM elements and apply a series of actions. It also provides a set of action factories that generate actions to manipulate the DOM elements in various ways.
 
 ### Example 1: Selecting Elements and Applying Actions
 
 ```js
-import { $, setAttr, addClass, on } from "chop-dom";
+import { cdom, setAttr, addClass, on } from "chop-dom";
 
 // Disable all buttons and add a class
-$(
-  "button",
+cdom(
+  "#btn",
   setAttr("disabled", "true"),
   addClass("active"),
   on("click", () => console.log("Button clicked"))
@@ -41,10 +41,10 @@ $(
 ### Example 2: Creating a New Element
 
 ```js
-import { $, setInnerHtml, appendTo } from "chop-dom";
+import { cdom, setInnerHtml, appendTo } from "chop-dom";
 
 // Create a new <div> element and set its inner HTML
-$("<div>", setInnerHtml("<p>Hello World</p>"), appendTo(document.body));
+cdom("<div>", setInnerHtml("<p>Hello World</p>"), appendTo(document.body));
 ```
 
 ## Tree-shakable Design
@@ -54,10 +54,10 @@ Chop-DOM is designed with tree-shaking in mind, which means that only the functi
 For example, if you only import setAttr and addClass, the bundler will only include these specific utilities in your project, and the rest of the library will be excluded from the build:
 
 ```js
-import { $, setAttr, addClass } from "chop-dom";
+import { cdom, setAttr, addClass } from "chop-dom";
 
 // No extra code will be bundled if you don't use other utilities
-$("button", setAttr("disabled", "true"), addClass("active"));
+cdom("#btn", setAttr("disabled", "true"), addClass("active"));
 ```
 
 ## TypeScript Support

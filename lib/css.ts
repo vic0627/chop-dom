@@ -1,11 +1,11 @@
-import type { Command } from "./types";
+import type { Command, Void } from "./types";
 
 /**
  * Creates a command to get the computed value of a CSS property from an element.
  * @param property - The CSS property name to retrieve.
  * @returns A command that retrieves the computed style value from the element.
  */
-export function getCss(property: string): Command<string | null> {
+export function getCss(property: string): Command<string> {
   return function (node) {
     return getComputedStyle(node).getPropertyValue(property);
   };
@@ -17,7 +17,7 @@ export function getCss(property: string): Command<string | null> {
  * @param value - The value to assign to the CSS property.
  * @returns A command that sets the CSS property on the element.
  */
-export function setCss(property: string, value: string): Command<void> {
+export function setCss(property: string, value: string): Command<Void> {
   return function (node) {
     node.style.setProperty(property, value);
   };
@@ -28,7 +28,7 @@ export function setCss(property: string, value: string): Command<void> {
  * @param properties - An object containing CSS property-value pairs to set.
  * @returns A command that sets multiple CSS properties on the element.
  */
-export function mapSetCss(properties: Record<string, string>): Command<void> {
+export function mapSetCss(properties: Record<string, string>): Command<Void> {
   return function (node) {
     for (const key in properties) {
       node.style.setProperty(key, properties[key]);
@@ -51,7 +51,7 @@ export function getWidth(): Command<number> {
  * @param value - The width value to set, either as a number (pixels) or a string (with units).
  * @returns A command that sets the width of the element.
  */
-export function setWidth(value: string | number): Command<void> {
+export function setWidth(value: string | number): Command<Void> {
   return function (node) {
     node.style.width = typeof value === "number" ? `${value}px` : value;
   };
@@ -72,7 +72,7 @@ export function getHeight(): Command<number> {
  * @param value - The height value to set, either as a number (pixels) or a string (with units).
  * @returns A command that sets the height of the element.
  */
-export function setHeight(value: string | number): Command<void> {
+export function setHeight(value: string | number): Command<Void> {
   return function (node) {
     node.style.height = typeof value === "number" ? `${value}px` : value;
   };
@@ -159,7 +159,7 @@ export function getScrollLeft(): Command<number> {
  * @param value - The scroll position to set.
  * @returns A command that sets the scrollLeft value of the element.
  */
-export function setScrollLeft(value: number): Command<void> {
+export function setScrollLeft(value: number): Command<Void> {
   return function (node) {
     node.scrollLeft = value;
   };
@@ -180,7 +180,7 @@ export function getScrollTop(): Command<number> {
  * @param value - The scroll position to set.
  * @returns A command that sets the scrollTop value of the element.
  */
-export function setScrollTop(value: number): Command<void> {
+export function setScrollTop(value: number): Command<Void> {
   return function (node) {
     node.scrollTop = value;
   };

@@ -1,4 +1,4 @@
-import type { Command } from "./types";
+import type { Command, Void } from "./types";
 
 /**
  * Creates a command to add an event listener to an element.
@@ -11,7 +11,7 @@ export function on(
   event: string,
   listener: EventListenerOrEventListenerObject,
   options?: boolean | AddEventListenerOptions
-): Command<void> {
+): Command<Void> {
   return function (node) {
     node.addEventListener(event, listener, options);
   };
@@ -28,7 +28,7 @@ export function off(
   event: string,
   listener: EventListenerOrEventListenerObject,
   options?: boolean | EventListenerOptions
-): Command<void> {
+): Command<Void> {
   return function (node) {
     node.removeEventListener(event, listener, options);
   };
@@ -45,7 +45,7 @@ export function once(
   event: string,
   listener: EventListenerOrEventListenerObject,
   options?: boolean | AddEventListenerOptions
-): Command<void> {
+): Command<Void> {
   return function (node) {
     const _listener: EventListenerOrEventListenerObject = (e) => {
       if (listener instanceof Function) {

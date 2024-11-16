@@ -1,11 +1,11 @@
-import type { Command } from "./types";
+import type { Command, Void } from "./types";
 
 /**
  * Creates a command to append one or more nodes or strings to an element.
  * @param nodes - Nodes or strings to append to the element.
  * @returns A command that appends the specified nodes or strings to the element.
  */
-export function append(...nodes: (Node | string)[]): Command<void> {
+export function append(...nodes: (Node | string)[]): Command<Void> {
   return function (node) {
     node.append(...nodes);
   };
@@ -16,7 +16,7 @@ export function append(...nodes: (Node | string)[]): Command<void> {
  * @param parent - The parent node to which the element will be appended.
  * @returns A command that appends the element to the parent node.
  */
-export function appendTo(parent: Node): Command<void> {
+export function appendTo(parent: Node): Command<Void> {
   return function (node) {
     parent.appendChild(node);
   };
@@ -26,7 +26,7 @@ export function appendTo(parent: Node): Command<void> {
  * Creates a command to remove an element from the DOM.
  * @returns A command that removes the element from the DOM.
  */
-export function remove(): Command<void> {
+export function remove(): Command<Void> {
   return function (node) {
     node.remove();
   };
@@ -38,7 +38,7 @@ export function remove(): Command<void> {
  * @param oldNode - The existing child node to be replaced.
  * @returns A command that replaces the old child with the new node in the element.
  */
-export function replaceChild(newNode: Node, oldNode: Node): Command<void> {
+export function replaceChild(newNode: Node, oldNode: Node): Command<Void> {
   return function (node) {
     node.replaceChild(newNode, oldNode);
   };
@@ -49,7 +49,7 @@ export function replaceChild(newNode: Node, oldNode: Node): Command<void> {
  * @param childNode - The child node to remove.
  * @returns A command that removes the specified child node from the element.
  */
-export function removeChild(childNode: Node): Command<void> {
+export function removeChild(childNode: Node): Command<Void> {
   return function (node) {
     node.removeChild(childNode);
   };

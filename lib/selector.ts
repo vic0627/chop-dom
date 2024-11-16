@@ -13,26 +13,26 @@ import { isEmptyValue } from "./utils/type-check";
  * @param selector - A CSS selector string, a new element string (e.g., "<div>"), or an existing `HTMLElement`, `Document`, or `Window`.
  * @param commands - A variadic list of `Command` functions to apply on the selected or created element(s).
  * @returns -
- * - If no `Command` is provided, returns the element(s) from the selection.
+ * - If no Command is provided or no commands return a non-nullable value (non-nullable values exclude null and undefined), the function returns the element(s) from the selection.
  * - If `Command` functions are provided, returns the result of applying the commands on the selected element(s). The result can be a single value or an array of values depending on the number of elements and commands.
  *
  * @example
  * // Selects an element and sets its innerHTML, then gets the updated innerHTML
- * $('#myElement', setInnerHtml('Hello World'), getInnerHtml());
+ * cdom('#myElement', setInnerHtml('Hello World'), getInnerHtml());
  *
  * @example
  * // Creates a new div element and sets its CSS properties
- * $('<div>', setCss('width', '100px'), setCss('height', '50px'));
+ * cdom('<div>', setCss('width', '100px'), setCss('height', '50px'));
  *
  * @example
  * // Appends a string and a node to an element
- * $('#myElement', append('Some text', $('<span>')));
+ * cdom('#myElement', append('Some text', $('<span>')));
  *
  * @throws {TypeError} If the `selector` is not a valid string, `Document`, `Window`, or `HTMLElement`.
  */
-export function $<S extends string | HTMLElement | Globals>(selector: S): ReturnsBySelector<S, HTMLElement>;
-export function $<S extends string | HTMLElement | Globals, T>(selector: S, ...commands: Command<T>[]): ReturnsByCommands<S, T>;
-export function $<S extends string | HTMLElement | Globals, T>(selector: S, ...commands: Command<T>[]): any {
+export function cdom<S extends string | HTMLElement | Globals>(selector: S): ReturnsBySelector<S, HTMLElement>;
+export function cdom<S extends string | HTMLElement | Globals, T>(selector: S, ...commands: Command<T>[]): ReturnsByCommands<S, T>;
+export function cdom<S extends string | HTMLElement | Globals, T>(selector: S, ...commands: Command<T>[]): any {
   let doms: DOMs<S>;
 
   // use as a selector

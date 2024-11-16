@@ -1,4 +1,4 @@
-import type { Command } from "./types";
+import type { Command, Void } from "./types";
 
 /**
  * Creates a command to check if an element's class list contains a specified token.
@@ -16,7 +16,7 @@ export function hasClass(token: string): Command<boolean> {
  * @param token - One or more class names to add.
  * @returns A command that adds the specified classes to the element.
  */
-export function addClass(...token: string[]): Command<void> {
+export function addClass(...token: string[]): Command<Void> {
   return function (node) {
     node.classList.add(...token);
   };
@@ -27,7 +27,7 @@ export function addClass(...token: string[]): Command<void> {
  * @param token - One or more class names to remove.
  * @returns A command that removes the specified classes from the element.
  */
-export function removeClass(...token: string[]): Command<void> {
+export function removeClass(...token: string[]): Command<Void> {
   return function (node) {
     node.classList.remove(...token);
   };

@@ -11,3 +11,5 @@ export type ExcludeEmpty<T> = T extends null | undefined | void ? never : T;
 export type ReturnsBySelector<S, T> = S extends `#${string}` | `<${string}>` ? ExcludeEmpty<T> : ExcludeEmpty<T> | ExcludeEmpty<T>[]
 
 export type ReturnsByCommands<S, T> = ReturnsBySelector<S, T | HTMLElement>;
+
+export type Void = undefined;
